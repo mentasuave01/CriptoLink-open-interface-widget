@@ -7,15 +7,21 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-const MySwal = withReactContent(Swal);
+
 import { Token, Hash } from "../types/dApp";
 import { ConnectKitButton } from "connectkit";
 import { useEffect, useState } from "react";
+import Sucess from "./Sucess";
 
-function SwapIt({ oData, oToken, dData, dToken }: DynamicButtonProps) {
+function SwapIt({
+  oData,
+  oToken,
+  dData,
+  dToken,
+  explorerURL,
+}: DynamicButtonProps) {
   const { address } = useAccount();
+
   const swapABI = [
     {
       constant: false,
@@ -74,7 +80,9 @@ function SwapIt({ oData, oToken, dData, dToken }: DynamicButtonProps) {
     },
   ];
   const [text, setText] = useState("SWAP");
+  const [sucess, setSucess] = useState(false);
   const source_address = localStorage.getItem(`source`);
+  const [hash, setHash] = useState<Hash>();
 
   const contractArguments = [
     dToken?.chainId,
@@ -84,7 +92,7 @@ function SwapIt({ oData, oToken, dData, dToken }: DynamicButtonProps) {
     dToken?.address,
     oData[8], //minTokenOut
     oData[8], //minStartPaper
-    address, //source
+    source_address, //source
     false, //express
     [], //calldata
   ];
@@ -123,19 +131,13 @@ function SwapIt({ oData, oToken, dData, dToken }: DynamicButtonProps) {
     onSuccess(data) {
       console.log(data);
       console.log(writeContractResult?.hash);
-      MySwal.fire({
-        title: "Success",
-        text: "Your swap was successful " + `${writeContractResult?.hash}`,
-        icon: "success",
-        confirmButtonText: "Ok",
-      }).then(() => {
-        window.location.reload();
-      });
+      setHash(writeContractResult?.hash);
+      setSucess(true);
     },
   });
 
   async function handleSwap() {
-    console.log("handleSwap");
+    // console.log("handleSwap");
 
     try {
       if (approveAsync) {
@@ -181,11 +183,25 @@ function SwapIt({ oData, oToken, dData, dToken }: DynamicButtonProps) {
           </div>
         ) : null}
       </button>
+      {sucess && (
+        <Sucess
+          close={function (): void {
+            setSucess(false);
+          }}
+          explorerURL={explorerURL.concat(hash as string)}
+        />
+      )}
     </>
   );
 }
 
-function Allowance({ oData, oToken, dData, dToken }: DynamicButtonProps) {
+function Allowance({
+  oData,
+  oToken,
+  dData,
+  dToken,
+  explorerURL,
+}: DynamicButtonProps) {
   const { address } = useAccount();
   const w2wContract = oData[13];
   const allowanceAmount = oData[14];
@@ -271,7 +287,13 @@ function Allowance({ oData, oToken, dData, dToken }: DynamicButtonProps) {
     );
   } else {
     return (
-      <SwapIt oToken={oToken} oData={oData} dToken={dToken} dData={dData} />
+      <SwapIt
+        oToken={oToken}
+        oData={oData}
+        dToken={dToken}
+        dData={dData}
+        explorerURL={explorerURL}
+      />
     );
   }
 }
@@ -281,6 +303,7 @@ interface DynamicButtonProps {
   oData: any;
   dToken: Token;
   dData: any;
+  explorerURL: string;
 }
 export const DynamicButton = ({
   oData,
@@ -293,7 +316,42 @@ export const DynamicButton = ({
   const dbc = localStorage.getItem("dbc") ?? "ffffff";
   const [dynamicState, setDynamicState] = useState("connectKit");
   const [text, setText] = useState("INPUT AMOUNT");
-  const [swapStatus, setSwapStatus] = useState("idle");
+  const [explorerURL, setExplorerURL] = useState("Paco");
+
+  useEffect(() => {
+    // console.log(oToken?.chainId);
+    switch (oToken?.chainId) {
+      case 43114: //avax
+        setExplorerURL("https://snowtrace.io/tx/");
+        break;
+      case 56: //bsc
+        setExplorerURL("https://bscscan.com/tx/");
+        break;
+      case 42220: //(celo)
+        setExplorerURL("https://celoscan.io/tx/");
+        break;
+      case 250: //ftm
+        setExplorerURL("https://ftmscan.com/tx/");
+        break;
+      case 25: //cro)
+        setExplorerURL("https://cronoscan.com/tx/");
+        break;
+      case 166660000: //harmony
+        setExplorerURL("https://explorer.harmony.one/tx/");
+        break;
+      case 137: //polygon
+        setExplorerURL("https://polygonscan.com/tx/");
+        break;
+      case 1088: //metis
+        setExplorerURL("https://andromeda-explorer.metis.io/tx/");
+        break;
+      // case 42262: //oasis
+      //   explorerURL = "0x21C718C22D52d0F3a789b752D4c2fD5908a8A733";
+      default:
+        setExplorerURL("Succes!");
+    }
+  }, [oToken?.chainId]);
+
   useEffect(() => {
     if (oToken?.address != undefined && dToken?.address != undefined) {
       if (oData && dData) {
@@ -317,12 +375,21 @@ export const DynamicButton = ({
       setText("SELECT TOKEN");
     }
   }, [dToken, oData, dData]);
-  console.log("Dynamic State: ", dynamicState);
+  // console.log("Dynamic State: ", dynamicState);
   switch (dynamicState) {
     case "swap":
       return (
-        <SwapIt oToken={oToken} oData={oData} dToken={dToken} dData={dData} />
+        <>
+          <SwapIt
+            oToken={oToken}
+            oData={oData}
+            dToken={dToken}
+            dData={dData}
+            explorerURL={explorerURL}
+          />
+        </>
       );
+
     case "allowance":
       return (
         <Allowance
@@ -330,6 +397,7 @@ export const DynamicButton = ({
           oData={oData}
           dData={dData}
           dToken={dToken}
+          explorerURL={explorerURL}
         />
       );
     default:

@@ -1,5 +1,10 @@
 import "./alert.css";
-export default function Sucess({ close }: { close: () => void }) {
+interface SucessProps {
+  close: () => void;
+  explorerURL: string;
+}
+
+export default function Sucess({ close, explorerURL }: SucessProps) {
   return (
     <>
       <div id="container">
@@ -14,7 +19,12 @@ export default function Sucess({ close }: { close: () => void }) {
           <div className="shadow scale"></div>
           <div className="message">
             <h1 className="alert">Success!</h1>
-            <p>yay, everything is working.</p>
+            <a
+              rel="noreferrer noopener"
+              target="_blank"
+              href={`${explorerURL}`}
+              id="txLink"
+            >{`${explorerURL}`}</a>
           </div>
           <button className="button-box" onClick={() => close()}>
             <h1 className="green">continue</h1>

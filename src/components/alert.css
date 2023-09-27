@@ -1,11 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 #container {
-  position: relative;
-  margin: auto;
+  position: absolute;
+  display: flex;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 50%;
+  justify-content: space-around;
+  align-items: center;
+}
+#txLink {
   overflow: hidden;
-  width: 700px;
-  height: 250px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 90%;
+  color: #fcfcfc;
+  cursor: pointer;
 }
 
 h1 {
@@ -31,28 +43,22 @@ h1 {
   letter-spacing: 5px;
 }
 
-p {
-  margin-top: -5px;
-  font-size: 0.5em;
-  font-weight: 100;
-  color: #5e5e5e;
-  letter-spacing: 1px;
-}
-
 button,
 .dot {
   cursor: pointer;
 }
 
 #success-box {
-  position: absolute;
-  width: 35%;
-  height: 100%;
-  left: 12%;
+  width: 30%;
+  height: 85%;
+  min-width: 300px;
+  min-height: 330px;
+
   background: linear-gradient(to bottom right, #b0db7d 40%, #99dbb4 100%);
   border-radius: 20px;
   box-shadow: 5px 5px 20px rgba(203, 205, 211, 0.1);
   perspective: 40px;
+  z-index: 9999;
 }
 
 #error-box {
@@ -226,25 +232,4 @@ button,
   100% {
     left: 25%;
   }
-}
-footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  text-align: center;
-  font-size: 1em;
-  text-transform: uppercase;
-  padding: 10px;
-  font-family: "Lato", sans-serif;
-}
-footer p {
-  color: #ef8d9c;
-  letter-spacing: 2px;
-}
-footer a {
-  color: #b0db7d;
-  text-decoration: none;
-}
-footer a:hover {
-  color: #ffc39e;
 }

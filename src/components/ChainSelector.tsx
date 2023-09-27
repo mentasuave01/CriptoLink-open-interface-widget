@@ -57,10 +57,10 @@ export function ChainSelector({
       name: "Harmony",
       logo: "https://cryptologos.cc/logos/harmony-one-logo.svg?v=025",
     },
-    42262: {
-      name: "Oasis",
-      logo: "https://cryptologos.cc/logos/oasis-network-rose-logo.svg?v=025",
-    },
+    // 42262: {
+    //   name: "Oasis",
+    //   logo: "https://cryptologos.cc/logos/oasis-network-rose-logo.svg?v=025",
+    // },
   };
 
   function handleChainClick(chainId: string) {

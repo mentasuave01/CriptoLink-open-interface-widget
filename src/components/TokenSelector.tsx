@@ -127,38 +127,47 @@ export const TokenSelector = ({
       case 43114: //avax
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/avaxList.json";
+        //"https://ipfs.io/ipfs/bafybeicrxgkxqqpjus2bajokzbup2zvwts7hwo7gr6vv7rukidnawnmvza/avaxList.json";
         break;
       case 56: //bsc
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/bscList.json";
+        //"https://ipfs.io/ipfs/bafybeid5pihfprsjizsz2v5l5kfoc3r3x4nvvi65wfxw6us6axkhlma5ea/bscList.json";
         break;
       case 42220: //celo
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/celoList.json";
+        //"https://ipfs.io/ipfs/bafybeiayai23zoygtqsavnt77rlfqw7be44gdcfy3crnkghiipr6mhhluy/celoList.json";
         break;
       case 250: //ftm
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/ftmList.json";
+        //"https://ipfs.io/ipfs/bafybeihvdrqvu3a7bhpdfkuemzdwnqxoe43g5vk4df5ltkudajue6pntb4/ftmList.json";
         break;
       case 25: //cronos
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/cronosList.json";
+        //  "https://ipfs.io/ipfs/bafybeifla7msymsncbz4ygxidia5iqtwqyo7zmpz22sh5t3gg7xyzleway/cronosList.json";
         break;
       case 1666600000: //harmony
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/harmonyList.json";
+        //          "https://ipfs.io/ipfs/bafybeibjmd4cw46or7vl2a26hmeyxibvaxtnzqtlygyaqqca44pebexsfm/harmonyList.json";
         break;
       case 137: //polygon
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/maticList.json";
+        // "https://ipfs.io/ipfs/bafybeif3s5dvzdyjqjdyxbc2v3bbs7rbdiv3gyey3ykq3odzor6i7ggtga/maticList.json";
         break;
       case 1088: //metis
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/metisList.json";
+        // "https://ipfs.io/ipfs/bafybeidqszo2rdqbxxuxdnkrjhao3clwdyfttkpm42br7d5bpa4sroquti/metisList.json";
         break;
       case 42262: //oasis
         chainURL =
           "https://raw.githubusercontent.com/mentasuave01/tokenlist-cryptolink-crosswap-interface/main/oasisList.json";
+        //"https://ipfs.io/ipfs/bafybeihkmvknygl6yve6vxcfp2jjzgzsdg5akjqvhhpibgrsepndhk27ge/oasisList.json";
         break;
 
       default:
