@@ -1,8 +1,6 @@
 "use client";
 import { Providers } from "./providers";
-export const metadata = {
-  title: "AnytoAny - 🍃 Menta Interface",
-};
+
 
 export default function RootLayout({
   children,
